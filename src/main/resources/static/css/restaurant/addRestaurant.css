@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/* 전체 레이아웃 */
+.admin-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 카드 */
+.card {
+  border-radius: 16px;
+}
+
+/* 테이블 */
+table th {
+  font-size: 13px;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+table td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* 배지 */
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+/* 버튼 */
+.btn-sm {
+  padding: 6px 14px;
+}
+
+/* 관리자센터 버튼(네모 + 둥근 모서리) */
+.btn-dashboard {
+  border-radius: 10px; /* ← 핵심 */
+  font-weight: 600;
+}
+
+.btn-orange{
+  background:#FF6600; border-color:#FF6600; color:#fff;
+}
+.btn-orange:hover{ background:#e65c00; border-color:#e65c00; color:#fff; }
+
+.btn-orange-outline {
+  color: #FF6600;
+  border: 1.5px solid #FF6600;
+  background: #fff;
+}
+.btn-orange-outline:hover {
+  background: #FF6600;
+  color: #fff;
+}
+
+.btn-mini{
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 1.2;
+  border-radius: 999px;
+  white-space: nowrap;
+  min-width: 64px;
+  text-align: center;
+}
+
+.btn-gray{
+  background-color:#adb5bd;
+  border-color:#adb5bd;
+  color:#fff;
+}
+.btn-gray:hover{
+  background-color:#9aa0a6;
+  border-color:#9aa0a6;
+  color:#fff;
+}
+
+/* 관리자센터 버튼(네모 + 둥근 모서리) */
+.btn-dashboard {
+  border-radius: 10px; /* ← 핵심 */
+  font-weight: 600;
+}
+
+.card-soft{
+  border:1px solid #e9ecef;
+  border-radius:14px;
+  background:#fff;
+  margin-bottom: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.title_size{
+		height: 200px;
+		background-color: #F0E6DB41;
+		margin-top: -25px;
+		margin-bottom: 50px;
+		border-bottom: 1px solid #eee;
+    	position: relative;
+	}
+	
+	.title_inner{
+		text-align:center;
+		padding:60px;
+		height:200px;
+	}
+	
+	.title_font{
+		font-size: 50px;
+		font-weight: bold;
+		color: #998e8e;
+		letter-spacing: 10px;
+	}
+
+.table td, .table th { vertical-align: middle; }
+
+.btn-margin{
+	margin-top: 30px;
+}
+
+.th-font{
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.td-width{
+	width: 30%;
+}
+
+/* ===== 입력창 포커스 색상 오렌지 ===== */
+.form-control:focus {
+  border-color: #FF6600;
+  box-shadow: 0 0 0 0.2rem rgba(255,102,0,0.25);
+}

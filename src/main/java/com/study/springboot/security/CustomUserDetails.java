@@ -26,6 +26,12 @@ public class CustomUserDetails implements UserDetails {
     public String getMno() {
         return member.getM_no();   // ← 컬럼명에 맞게
     }
+    
+    // 닉네임
+    public String getNickname() {
+        return member.getM_nickname();
+    }
+
 
     //  로그인 아이디
     public String getLoginId() {

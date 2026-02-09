@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/* 전체 레이아웃 */
+.admin-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 카드 */
+.card {
+  border-radius: 16px;
+}
+
+/* 테이블 */
+table th {
+  font-size: 13px;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+table td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* 버튼 */
+.btn-sm {
+  padding: 6px 14px;
+}
+
+/* 상단 우측 버튼(네모 + 둥근 모서리) */
+.btn-dashboard {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* 링크 (제목 링크 주황톤) */
+.notice-link {
+  text-decoration: none;
+  font-weight: 600;
+  color: #FF6600;
+}
+.notice-link:hover {
+  text-decoration: underline;
+  color: #e65c00;
+}
+
+/* 타이틀 배너 */
+.title_size{
+  height: 200px;
+  background-color: #F0E6DB41;
+  margin-top: -25px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.title_inner{
+  text-align:center;
+  padding:60px;
+  height:200px;
+}
+
+.title_font{
+  font-size: 50px;
+  font-weight: bold;
+  color: #998e8e;
+  letter-spacing: 10px;
+}
+
+/* 오렌지 버튼 */
+.btn-orange {
+  background-color: #FF6600;
+  border-color: #FF6600;
+  color: #fff;
+}
+.btn-orange:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}
+
+/* ==============================
+   ✅ 이 페이지: 왼쪽 고정 여백 제거 + 햄버거 토글 유지
+   (SB Admin 사이드바 overlay 방식)
+============================== */
+
+/* 1) 본문이 사이드바 때문에 밀리는 기본 margin 제거 */
+.sb-nav-fixed #layoutSidenav #layoutSidenav_content{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 2) 사이드바를 overlay로 (열고 닫기 가능) */
+#layoutSidenav #layoutSidenav_nav{
+  position: fixed !important;
+  left: 0;
+  top: var(--topnav-h, 130px) !important;                 /* header.jsp 변수 없을 때 대비 */
+  height: calc(100vh - var(--topnav-h, 130px)) !important;
+
+  width: var(--side-w, 350px) !important;                 /* header.jsp --side-w 사용 */
+  transform: translateX(0);                               /* 기본은 열림 */
+  transition: transform .2s ease-in-out;
+  z-index: 9999;
+}
+
+/* 3) 토글 클래스가 붙으면 닫힘 (SB Admin 기본 규칙) */
+body.sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav{
+  transform: translateX(calc(-1 * var(--side-w, 350px))) !important;
+}
+

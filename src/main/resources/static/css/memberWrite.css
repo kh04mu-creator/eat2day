@@ -1,0 +1,542 @@
+@charset "UTF-8";
+/* ====== 전체 컨테이너 ====== */
+.auth-container{
+    width: 1000px;      /* 가로 확장 */
+    height: 620px;      /* 세로 확장 */
+    margin: 0px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    background: #fff;
+    position: relative;
+}
+
+/* ====== 폼 공통(로그인/회원가입) ====== */
+.auth-form{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    padding: 60px 50px;   /* ⬅️ 기존 50px 40px → 확장 */
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    background: #fff;
+}
+
+.auth-form{
+    overflow-y: auto;
+}
+
+.auth-form h2{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.auth-form label{
+    display:block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"]{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+.auth-form input:focus{
+    outline:none;
+    border-color:#FF6600;
+    box-shadow:0 0 0 2px rgba(255,102,0,0.2);
+}
+
+.auth-form .btn{
+    width:100%;
+    margin-top:30px;
+    padding:12px;
+    background:#FF6600;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    cursor:pointer;
+    transition: background-color .15s ease,
+              transform .12s ease,
+              box-shadow .15s ease;
+}
+
+.auth-form .btn:hover{
+  background-color: #e65c00;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.auth-form .alert{
+    background:#FF6600;
+    color:#fff;
+    padding:10px;
+    border-radius:6px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+/* ====== 로그인 폼(왼쪽 시작) ====== */
+.sign-in{
+    left: 0;
+    z-index: 2;
+}
+
+/* ====== 회원가입 폼(오른쪽에 숨겨둠) ====== */
+.sign-up{
+    left: 0;           /* 같은 기준에서 시작 */
+    opacity: 0;
+    z-index: 1;
+    transform: translateX(0);
+    overflow-y: auto;          /* ⬅️ 세로 스크롤 */
+    padding-right: 45px;       /* 스크롤바 겹침 방지 */
+}
+
+/* 라디오 버튼 정리 */
+.sign-up .radio-group {
+    margin-top: 8px;
+    display: flex;
+    gap: 20px;
+}
+
+/* 버튼 그룹 */
+.sign-up .btn-group {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.sign-up .btn-group input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    background: #FF6600;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+/* ====== 오버레이(그라데이션 카드) ====== */
+.overlay-container{
+    position:absolute;
+    top:0;
+    left:50%;
+    width:50%;
+    height:100%;
+    overflow:hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 10;
+}
+
+.overlay{
+    background: linear-gradient(135deg,#ff4800 0.0%,#ff5f14 25.0%,#ffa061 50.0%,#ff5f14 75.0%,#ff6600 100.0%);
+    color:#fff;
+    position:relative;
+    left:-100%;
+    width:200%;
+    height:100%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    display:flex;
+}
+
+.overlay-panel{
+    width:50%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+}
+
+.overlay-panel h2{ font-size:32px; margin-bottom:15px; }
+.overlay-panel p{ font-size:15px; margin-bottom:30px; opacity:0.9; }
+
+.overlay-panel .ghost{
+    padding: 12px 28px;
+    border-radius: 25px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+.overlay-panel .ghost:hover{
+    background:#fff;
+    color:#FF6600;
+}
+
+/* 아이콘 */
+.overlay-panel .login-icon{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    border:2px solid #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+/* ====== 전환 상태: right-panel-active ====== */
+/* 1) 오버레이 컨테이너가 왼쪽으로 이동 */
+.auth-container.right-panel-active .overlay-container{
+    transform: translateX(-100%);
+}
+
+/* 2) 오버레이 내부가 오른쪽 패널 보여주도록 이동 */
+.auth-container.right-panel-active .overlay{
+    transform: translateX(50%);
+}
+
+/* 3) 로그인 폼은 오른쪽으로 밀림(숨김) */
+.auth-container.right-panel-active .sign-in{
+    transform: translateX(100%);
+}
+
+/* 4) 회원가입 폼이 오른쪽에 나타남 */
+.auth-container.right-panel-active .sign-up{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* =========================
+   로그인 카드 위치 위로 당기기
+========================= */
+
+/* main 기본 패딩 제거 */
+#layoutSidenav_content main.container-fluid{
+  padding-top: 0 !important;
+}
+
+/* 로그인 페이지 body 여백 제거 */
+body{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 로그인 카드 상단 위치 = 검색바 바로 아래 */
+.auth-container{
+  margin: -80px auto 60px auto !important;   /* ⭐ 위 여백만 최소 */
+}
+
+/* 혹시 container px-4 때문에 내려가면 추가 */
+#layoutSidenav_content .px-4{
+  padding-top: 0 !important;
+}
+
+/* 소셜 로그인 구분선 */
+.social-divider{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:18px;
+  margin-bottom:12px;
+  color:#999;
+  font-size:13px;
+}
+.social-divider::before,
+.social-divider::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:#eee;
+}
+.social-divider span{
+  white-space:nowrap;
+}
+
+/* 소셜 로그인 버튼 */
+.social-login{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.social-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  padding:12px;
+  border-radius:6px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#333;
+  cursor:pointer;
+  transition: transform .06s ease, box-shadow .2s ease;
+}
+
+.social-btn:active{
+  transform: translateY(1px);
+}
+
+.social-btn.kakao{
+  background:#FEE500;
+  border-color:#FEE500;
+  color:#191919;
+}
+
+/* 카카오 로그인 hover 효과 */
+.social-btn.kakao:hover{
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transform: translateY(-1px);
+}
+
+
+.social-btn.google{
+  background:#fff;
+  border-color:#ddd;
+  color:#333;
+}
+.social-btn.google:hover{
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   소셜 로그인 아이콘
+=============================== */
+.social-btn{
+  position: relative;
+  gap: 10px;              /* 아이콘 + 텍스트 간격 */
+}
+
+/* 공통 아이콘 박스 */
+.social-icon{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 카카오 아이콘 */
+.social-icon.kakao{
+  background-image: url("/images/icon-kakao.png");
+}
+
+/* 구글 아이콘 */
+.social-icon.google{
+  background-image: url("/images/icon-google.png");
+}
+
+
+
+/* 이메일 + 중복확인 한 줄 */
+.email-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.email-row input[type="text"]{
+  flex:1;
+}
+
+/* 이메일 중복확인 결과 */
+#emailResult{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* 이메일 / 닉네임 / 인증번호 한 줄 높이 통일 */
+.email-row input[type="text"],
+.nickname-row input[type="text"],
+.verify-row input[type="text"]{
+  height: 40px;
+}
+
+/* 이메일 인증 버튼 + 타이머 한 줄 */
+.email-auth-row{
+  margin-top:8px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* ✅ 타이머를 버튼 옆에 */
+.verify-timer-inline{
+  font-size:13px;
+  font-weight:800;
+  color:#ff3b30;
+  white-space:nowrap;
+}
+
+#verifyArea{
+  display:none;         /* 처음엔 숨김 */
+  margin-top: 14px;
+}
+
+.verify-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.verify-row input[type="text"]{
+  flex:1;
+}
+
+/* 인증 결과 문구 */
+#verifyResult{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* 닉네임 + 중복확인 한 줄 */
+.nickname-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.nickname-row input[type="text"]{
+  flex:1;
+}
+
+/* 닉네임 중복확인 결과 */
+#nickResult{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* ===============================
+   공통 버튼 – 절제된 오렌지 스타일
+=============================== */
+.auth-form input[type="button"],
+.auth-form button:not(.btn){
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1.5px solid #FF6600;
+  background: #fff;
+  color: #FF6600;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  /* 과한 효과 제거 */
+  box-shadow: none;
+  transform: none;
+  transition: background-color .15s ease,
+              color .15s ease,
+              border-color .15s ease;
+}
+
+/* hover – 색만 변하게 */
+.auth-form input[type="button"]:hover,
+.auth-form button:not(.btn):hover{
+  background-color: #FF6600;
+  color: #fff;
+  border-color: #FF6600;
+}
+
+/* active – 살짝만 눌리는 느낌 */
+.auth-form input[type="button"]:active,
+.auth-form button:not(.btn):active{
+  background-color: #e65c00;
+  border-color: #e65c00;
+}
+
+/* disabled */
+.auth-form input[type="button"]:disabled{
+  background-color: #f6f6f6;
+  border-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+
+/* SUBMIT / LOGIN hover */
+.auth-form input[type="submit"]:hover,
+.auth-form .btn:hover{
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}
+
+/* SUBMIT / LOGIN active */
+.auth-form input[type="submit"]:active,
+.auth-form .btn:active{
+  background-color: #cc5200;
+  border-color: #cc5200;
+}
+
+/* RESET 기본 */
+.auth-form input[type="reset"]{
+  background-color: #fff;
+  border: 1.5px solid #FF6600;
+  color: #FF6600;
+}
+
+/* RESET hover */
+.auth-form input[type="reset"]:hover{
+  background-color: #FF6600;
+  color: #fff;
+  border-color: #FF6600;
+}
+
+/* RESET active */
+.auth-form input[type="reset"]:active{
+  background-color: #e65c00;
+  border-color: #e65c00;
+}
+
+#signupToast{
+  position: relative;
+}
+
+
+/* 토스트 닫기 버튼 */
+.toast-close-btn{
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.25);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s ease;
+}
+
+.toast-close-btn:hover{
+  background: rgba(255,255,255,0.4);
+}
+
+.toast-close-btn i{
+  font-size: 14px;
+}
+
+
+
+

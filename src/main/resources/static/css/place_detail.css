@@ -1,0 +1,479 @@
+body{
+  margin:0;
+  font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Noto Sans KR", "Malgun Gothic", Arial, sans-serif;
+}
+#layout{ display:flex; height:100vh; }
+
+/* ===== Left panel ===== */
+#search-panel{
+  width:420px;
+  background:#fff;
+  border-right:1px solid #ddd;
+  overflow-y:auto;
+}
+
+.header-container{
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:1000;
+}
+
+.logo-wrap1{
+  height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sidebar-logo1{
+  width:160px;
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto -5px auto;
+}
+
+/* search */
+.search-header{
+  padding:3px 10px 10px 12px;
+  border-bottom:2px solid #eee;
+  display:flex;
+  gap:8px;
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:5;
+}
+.search-header input[type="text"]{
+  flex:1;
+  padding:12px 20px;
+  font-size:20px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  outline:none;
+  transition:all .2s ease;
+}
+.search-header input[type="text"]:focus{
+  border-color:#ff6600;
+  box-shadow:0 0 0 3px rgba(255,102,0,.18);
+  background-color:#fffdf9;
+}
+.search-header button{
+  background:#ff6a00;
+  color:#fff;
+  border:none;
+  padding:0 20px;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .2s, transform .2s;
+  white-space:nowrap;
+}
+.search-header button:hover{
+  background:#e85c00;
+  transform:scale(1.03);
+}
+
+/* ===== List ===== */
+.place-list{ width:100%; }
+.result-body{
+  display:flex;
+  flex-direction:column;
+}
+
+/* restaurantList.js가 만드는 카드 스타일 */
+.place-card{
+  display:flex;
+  gap:14px;
+  padding:14px 14px;
+  border-bottom:1px solid #f0f0f0;
+  border-radius:10px;
+  cursor:pointer;
+  transition: all 0.25s ease;
+}
+.place-card:hover{ background:#fff4ec; }
+
+/* 선택된 카드 표시 */
+.place-card.active{
+  background:#fff6f6;          /* 연한 붉은 배경 */
+  border-left:6px solid #ff6600; /* 빨간 포인트 */
+  padding-left:8px;
+}
+
+/* 리스트 선택 강조 */
+.place-card.active{
+  background:#fff6f6;
+  border-left:6px solid #ff6600;
+  padding-left:8px;
+}
+.place-card.active .place-name{
+  color:#ff6600 !important;
+  font-weight:1200;
+}
+
+.place-card.active .place-address,
+.place-card.active .place-phone{
+  color:#ff6600 !important;
+  font-weight:700;
+}
+
+.selected-label{
+  background:#ffffff;
+  color:#222;
+  font-weight:700;
+  font-size:13px;
+  padding:6px 14px;
+  border-radius:999px;
+
+  border:2px solid #3b82f6;   /* ⭐ 파란 테두리 */
+  box-shadow:0 3px 8px rgba(0,0,0,0.15);
+
+  white-space:nowrap;
+  position:relative;
+}
+
+.selected-label::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  transform:translateX(-50%);
+
+  width:10px;
+  height:10px;
+  background:#fff;
+
+  border-right:2px solid #3b82f6;
+  border-bottom:2px solid #3b82f6;
+
+  transform:translateX(-50%) rotate(45deg);
+}
+
+@keyframes labelFadeUp{
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+.selected-label1{
+  background:#ffffff;
+  color:#222;
+  font-weight:800;
+  font-size:13px;
+  padding:6px 14px;
+  border-radius:999px;
+
+  border:2px solid #ff6600;   /* ⭐ 파란 테두리 */
+  box-shadow:0 3px 8px rgba(0,0,0,0.15);
+
+  white-space:nowrap;
+  position:relative;
+}
+
+.selected-label1::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  transform:translateX(-50%);
+
+  width:10px;
+  height:10px;
+  background:#fff;
+
+  border-right:2px solid #ff6600;
+  border-bottom:2px solid #ff6600;
+
+  transform:translateX(-50%) rotate(45deg);
+}
+
+
+.thumb-wrap{
+  width:96px;
+  height:96px;
+  flex-shrink:0;
+  border-radius:10px;
+  overflow:hidden;
+  background:#f3f3f3;
+}
+.thumb-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.place-info{ flex:1; display:flex; flex-direction:column; gap:6px; }
+.place-name{ font-size:18px; font-weight:800; color:#222; }
+.place-address{ font-size:14px; color:#ff6600; line-height:1.2; }
+.place-phone{ font-size:13px; color:#777; line-height:1.2; }
+
+#pagination{ padding:14px; text-align:center; }
+#pagination button{
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:8px;
+  padding:8px 10px;
+  margin:0 4px;
+  cursor:pointer;
+}
+#pagination button:hover{ border-color:#ff6600; }
+
+/* ===== Right map ===== */
+#map-area{ flex:1; position:relative; }
+#map{ width:100%; height:100%; }
+
+/* ===== Place card overlay ===== */
+#place-card{
+  position:absolute;
+  top:15px;
+  left:15px;
+  width:420px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  overflow:hidden;
+  z-index:20;
+}
+
+/* 마우스 올리면 살짝 떠오름 */
+.place-card:hover{
+  transform: translateY(-2px);
+  border-radius:10px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  border-color:#ffd2b8;
+  
+}
+
+/* 클릭 시 눌리는 느낌 */
+.place-card:active{
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 10px 26px rgba(255,59,48,0.18), 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.image-box{ display:flex; overflow-x:auto; }
+.image-box img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-right:3px;
+}
+
+.close-btn{
+  position:absolute;
+  top:8px;
+  right:14px;
+  background:rgba(0,0,0,.35);
+  border:none;
+  font-size:30px;
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  color:#fff;
+  cursor:pointer;
+  z-index:30;
+}
+.close-btn:hover{
+  color:#ff6600;
+  transform:scale(1.3);
+}
+
+.content{ padding:18px 20px 14px; }
+.place-name-big{ font-size:26px; font-weight:900; line-height:1.25em; }
+.category{ font-size:15px; font-weight:normal; color:#777; margin-left:6px; }
+.address{ font-size:18px; line-height:1.5em; color:#424242; margin-top:10px; }
+.phone{ font-size:18px; line-height:2em; color:#424242; margin-top:6px; }
+.icon{
+  width:26px;
+  height:26px;
+  fill:#999;
+  margin-right:6px;
+  vertical-align:middle;
+}
+
+/* ===== Review ===== */
+.review-area{
+  max-height:300px;
+  overflow-y:auto;
+  border-top:1px solid #eee;
+  padding:10px 14px;
+}
+.review-area button{
+  border:none;
+  border-radius:6px;
+  padding:6px 12px;
+  font-size:13px;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.review-area form button[type="submit"]{
+  background:#ff6600;
+  color:#fff;
+}
+.review-area form button[type="submit"]:hover{
+  background:#e05500;
+  transform:scale(1.03);
+}
+.review-input-row{ display:flex; gap:6px; margin-top:6px; }
+.review-input-row input{ flex:1; }
+
+.review-area input[type="text"]{
+  width:100%;
+  padding:10px 8px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  margin-bottom:6px;
+  font-size:15px;
+}
+.review-area input[type="text"]:focus{
+  outline:none;
+  border-color:#ff6600;
+  box-shadow:0 0 0 3px rgba(255,102,0,.18);
+  background-color:#fffdf9;
+}
+
+.star-input{ margin-bottom:6px; }
+.star-rating span{
+  font-size:25px;
+  letter-spacing:-1px;
+  cursor:pointer;
+
+  color:#ff6a00;
+
+  display:inline-block;
+
+  /* ⭐ 둥글 느낌 핵심 */
+  text-shadow:
+    0 0 1px rgba(0,0,0,0.15),
+    0 1px 2px rgba(0,0,0,0.25);
+
+  transform:scale(1.05);
+}
+
+.star-rating span.active{ color:gold; }
+
+.review{
+  border-bottom:1px solid #eee;
+  padding:10px 0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.review-top{ display:flex; align-items:center; gap:6px; }
+.review-writer{ font-weight:800; color:#424242; }
+.star{ color:#ff6600; font-size:14px; letter-spacing:-0.1em; }
+.rating{ font-size:12px; color:#777; letter-spacing:0.2em; }
+.review-body{ line-height:1.5; color:#333; word-break:break-word; }
+.review-bottom{ display:flex; justify-content:flex-end; }
+
+.btn-delete{
+  background:transparent !important;
+  color:#ff4444 !important;
+  font-size:13px;
+  font-weight:bold;
+  padding:4px 6px;
+}
+.btn-delete:hover{
+  color:#cc0000 !important;
+  text-decoration:underline;
+  transform:scale(1.2);
+}
+/* ✅ 페이지 전환 부드럽게 */
+body{
+  opacity: 1;
+  transition: opacity .18s ease;
+}
+body.page-leave{
+  opacity: 0;
+}
+/* ✅ 전체 화면 전환 오버레이 */
+#page-transition{
+  position: fixed;
+  inset: 0;
+  background: #fff4ec;           /* 하얀 배경으로 깜빡임 덮기 */
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999999;
+  transition: opacity .22s ease;
+}
+
+/* 나갈 때 */
+#page-transition.on{
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 들어올 때(처음 로딩 시 잠깐 보여줬다가 사라짐) */
+#page-transition.enter{
+  opacity: 1;
+}
+/* ✅ 전체 화면 전환 오버레이 */
+#page-transition{
+  position: fixed;
+  inset: 0;
+  background: #fff4ec;  /* 추천: 너 UI 톤 / 완전 흰색은 #fff */
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999999;
+  transition: opacity .22s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* 나갈 때 */
+#page-transition.on{
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 들어올 때 (처음 로딩에 살짝 덮고 시작했다가 걷어냄) */
+#page-transition.enter{
+  opacity: 1;
+}
+
+#page-transition .pt-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  transform: translateY(-6px);
+}
+
+#page-transition .pt-logo{
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
+  animation: ptPop .75s ease-in-out infinite alternate;
+}
+
+@keyframes ptPop{
+  from { transform: scale(0.98); }
+  to   { transform: scale(1.02); }
+}
+
+/* 점 3개 로딩 */
+#page-transition .pt-dots{
+  display:flex;
+  gap:6px;
+}
+#page-transition .pt-dots span{
+  width:8px; height:8px;
+  border-radius:999px;
+  background:#ff6600;
+  opacity:.65;
+  animation: ptBounce 0.9s ease-in-out infinite;
+}
+#page-transition .pt-dots span:nth-child(2){ animation-delay: .12s; }
+#page-transition .pt-dots span:nth-child(3){ animation-delay: .24s; }
+
+@keyframes ptBounce{
+  0%, 100% { transform: translateY(0); opacity:.55; }
+  50%      { transform: translateY(-6px); opacity:1; }
+}
+

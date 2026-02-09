@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.admin-wrap { max-width: 900px; margin: 0 auto; }
+
+.btn-orange{
+  background:#FF6600; border-color:#FF6600; color:#fff;
+}
+.btn-orange:hover{ background:#e65c00; border-color:#e65c00; color:#fff; }
+
+.btn-mini{
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 1.2;
+  border-radius: 999px;
+  white-space: nowrap;
+  min-width: 64px;
+  text-align: center;
+}
+
+.btn-gray{
+  background-color:#adb5bd;
+  border-color:#adb5bd;
+  color:#fff;
+}
+.btn-gray:hover{
+  background-color:#9aa0a6;
+  border-color:#9aa0a6;
+  color:#fff;
+}
+
+.card-soft{
+  border:1px solid #e9ecef;
+  border-radius:14px;
+  background:#fff;
+}
+
+.table td, .table th { vertical-align: middle; }
+
+.title_size{
+		height: 200px;
+		background-color: #F0E6DB41;
+		margin-top: -80px;
+		margin-bottom: 50px;
+		border-bottom: 1px solid #eee;
+    	position: relative;
+	}
+	
+	.title_inner{
+		text-align:center;
+		padding:60px;
+		height:200px;
+	}
+	
+	.title_font{
+		font-size: 50px;
+		font-weight: bold;
+		color: #998e8e;
+		letter-spacing: 10px;
+	}
+

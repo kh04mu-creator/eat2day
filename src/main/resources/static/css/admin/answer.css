@@ -1,0 +1,14 @@
+@charset "UTF-8";
+.page-title { font-weight: 800; margin: 6px 0 12px; }
+
+/* 오렌지 버튼 */
+.btn-orange {
+  background-color: #FF6600;
+  border-color: #FF6600;
+  color: #fff;
+}
+.btn-orange:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}

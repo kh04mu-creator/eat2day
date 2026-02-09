@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/* ===== 카드 기준 ===== */
+.member-card {
+  position: relative;
+  padding-top: 80px !important;   /* 아이콘 자리 */
+  padding-bottom: 50px;
+  margin-top: -20px !important;   /* 위로 당김 */
+}
+
+/* ===== 카드 안 중앙 아이콘 ===== */
+.profile-inside {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.profile-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6600, #ff944d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #fff;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+/* ===== 버튼 색상 통일 ===== */
+.btn-orange {
+  background-color: #FF6600;
+  border-color: #FF6600;
+  color: #fff;
+}
+.btn-orange:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}
+
+.btn-orange-outline {
+  color: #FF6600;
+  border: 1.5px solid #FF6600;
+  background: #fff;
+}
+.btn-orange-outline:hover {
+  background: #FF6600;
+  color: #fff;
+}
+
+/* ===== 입력창 포커스 색상 오렌지 ===== */
+.form-control:focus {
+  border-color: #FF6600;
+  box-shadow: 0 0 0 0.2rem rgba(255,102,0,0.25);
+}

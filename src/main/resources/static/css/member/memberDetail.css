@@ -1,0 +1,88 @@
+@charset "UTF-8";
+/* ===== 카드 기준 ===== */
+.member-card {
+  position: relative;              /* ⭐ 핵심 */
+  padding-top: 80px !important;    /* 아이콘 자리 */
+  padding-bottom: 50px;
+  margin-top: -20px !important;   /* ⭐ 위로 당김 */
+
+
+/* ===== 카드 안 프로필 아이콘 ===== */
+.profile-inside {
+  position: absolute;
+  top: 0;                          /* 카드 안 상단 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.profile-circle {
+  width: 140px;      /* ⬅️ 크기 업 */
+  height: 140px;     /* ⬅️ 크기 업 */
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6600, #ff944d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #fff;       /* 테두리도 살짝 굵게 */
+  box-shadow: 0 14px 34px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+/* 👑 왕관: 머리 위에 씌우기 */
+.crown-icon {
+  position: absolute;
+  top: 29px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 28px;
+  z-index: 6;
+}
+
+/* ✨ 반짝선 애니메이션 — 더 티나게 */
+.spark{
+  animation: sparkle 1.1s infinite;
+  transform-origin: center;
+}
+
+.spark-delay{
+  animation-delay: .25s;
+}
+
+.spark-delay2{
+  animation-delay: .5s;
+}
+
+@keyframes sparkle{
+  0%   { opacity:.2; transform:scale(0.6); }
+  40%  { opacity:1;  transform:scale(1.25); }
+  100% { opacity:.2; transform:scale(0.6); }
+}
+
+
+
+
+/* ===== 버튼 색상 통일 ===== */
+.btn-orange {
+  background-color: #FF6600;
+  border-color: #FF6600;
+  color: #fff;
+}
+
+.btn-orange:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}
+
+.btn-orange-outline {
+  color: #FF6600;
+  border: 1.5px solid #FF6600;
+  background: #fff;
+}
+
+.btn-orange-outline:hover {
+  background: #FF6600;
+  color: #fff;
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.restaurantDAO">
+
+  <!-- RESTAURANT + (서브쿼리) thumbnail_url -->
+  <resultMap id="restaurantMap" type="com.study.springboot.dto.restaurantDTO">
+    <id property="id" column="id"/>
+
+    <result property="address_name" column="address_name"/>
+    <result property="category_group_code" column="category_group_code"/>
+    <result property="category_group_name" column="category_group_name"/>
+    <result property="category_name" column="category_name"/>
+    <result property="distance" column="distance"/>
+
+    <result property="phone" column="phone"/>
+    <result property="place_name" column="place_name"/>
+    <result property="place_url" column="place_url"/>
+    <result property="road_address_name" column="road_address_name"/>
+
+    <result property="x" column="x"/>
+    <result property="y" column="y"/>
+
+    <!-- MEDIA에서 가져온 썸네일 (CONTENT) -->
+    <result property="thumbnailUrl" column="thumbnail_url"/>
+  </resultMap>
+
+  <!-- 상세 -->
+  <select id="selectRestaurantById" resultMap="restaurantMap">
+    SELECT
+      R.*,
+      (
+        SELECT M.CONTENT
+        FROM MEDIA M
+        WHERE M.PLACE_ID = R.ID
+          AND M.TYPE = 'image'
+          AND ROWNUM = 1
+      ) AS thumbnail_url
+    FROM RESTAURANT R
+    WHERE R.ID = #{id}
+  </select>
+
+  <!-- 전체 -->
+  <select id="selectAllPlaces" resultMap="restaurantMap">
+    SELECT
+      R.*,
+      (
+        SELECT M.CONTENT
+        FROM MEDIA M
+        WHERE M.PLACE_ID = R.ID
+          AND M.TYPE = 'image'
+          AND ROWNUM = 1
+      ) AS thumbnail_url
+    FROM RESTAURANT R
+    ORDER BY R.PLACE_NAME
+  </select>
+
+  <!-- 키워드 검색 -->
+  <select id="selectPlaceListByKeyword" resultMap="restaurantMap">
+    SELECT
+      R.*,
+      (
+        SELECT M.CONTENT
+        FROM MEDIA M
+        WHERE M.PLACE_ID = R.ID
+          AND M.TYPE = 'image'
+          AND ROWNUM = 1
+      ) AS thumbnail_url
+    FROM RESTAURANT R
+    WHERE R.PLACE_NAME LIKE '%' || #{keyword} || '%'
+       OR R.ROAD_ADDRESS_NAME LIKE '%' || #{keyword} || '%'
+       OR R.CATEGORY_NAME LIKE '%' || #{keyword} || '%'
+    ORDER BY R.PLACE_NAME
+  </select>
+
+  <!-- 썸네일만 1장 (ES 검색 결과에서 N+1로 쓰는 용도) -->
+  <select id="selectThumbnailByPlaceId" parameterType="long" resultType="string">
+    SELECT CONTENT
+    FROM MEDIA
+    WHERE PLACE_ID = #{placeId}
+      AND TYPE = 'image'
+      AND ROWNUM = 1
+  </select>
+
+  <!-- 근처 (현재는 전체 반환, 필요하면 WHERE/ORDER 추가) -->
+  <select id="selectNearby" resultMap="restaurantMap">
+    SELECT
+      R.*,
+      (
+        SELECT M.CONTENT
+        FROM MEDIA M
+        WHERE M.PLACE_ID = R.ID
+          AND M.TYPE = 'image'
+          AND ROWNUM = 1
+      ) AS thumbnail_url
+    FROM RESTAURANT R
+  </select>
+	<select id="searchWithThumb" resultType="com.study.springboot.dto.restaurantDTO"> 
+		SELECT r.id, r.place_name, r.road_address_name, r.phone, r.x, r.y, m.content AS thumb 
+		FROM restaurant r LEFT JOIN ( SELECT place_id, content FROM ( SELECT place_id, content, ROW_NUMBER() OVER (PARTITION BY place_id ORDER BY id) rn 
+		FROM media 
+		WHERE type = 'image' ) WHERE rn = 1 ) m ON r.id = m.place_id 
+	</select>
+	<insert id="addRestaurant"> insert into restaurant(address_name, category_group_code, category_group_name, category_name, distance, id, phone, place_name, place_url, road_address_name, x, y) values(#{address_name},#{category_group_code},#{category_group_name},#{category_name}, NULL,#{id},#{phone},#{place_name},#{place_url},#{road_address_name},#{x},#{y}) </insert>
+	<select id="listRestaurant" resultType="com.study.springboot.dto.restaurantDTO"> select * from restaurant order by id </select>
+	<select id="viewRestaurant" resultType="com.study.springboot.dto.restaurantDTO"> select * from restaurant where id = #{id} </select>
+	<update id="updateRestaurant"> update restaurant set address_name = #{address_name}, category_group_code = #{category_group_code}, category_group_name = #{category_group_name}, category_name = #{category_name}, phone = #{phone}, place_name = #{place_name}, place_url = #{place_url}, road_address_name = #{road_address_name}, x = #{x}, y = #{y} where id = #{id} </update>
+	<delete id="deleteRestaurant"> delete from restaurant where id= #{id} </delete>
+
+</mapper>

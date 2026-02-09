@@ -1,0 +1,791 @@
+@charset "UTF-8";
+/* ==============================
+   Top Navbar / Layout
+============================== */
+/* ✅ 홈 화면 중앙 기준 폭 */
+:root{
+  --topnav-h: 130px;
+  --center-w: 520px; /* 룰렛 가운데 폭이랑 동일 */
+  --side-w: 350px;
+}
+
+/* ✅ Topnav는 항상 최상단 */
+.sb-topnav{
+  background-color:#FF6600 !important;
+  position: fixed !important;   /* ✅ fixed는 이렇게 */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topnav-h) !important;
+  z-index: 10050 !important;
+}
+
+/* ✅ 드롭다운도 topnav 위에 확실히 */
+.sb-topnav .dropdown-menu{
+  z-index: 10060 !important;
+}
+
+/* 닉네임은 안굵게 */
+.sb-topnav .nav-nickname{
+  font-weight: 400 !important;
+}
+
+/* '님'도 안굵게 */
+.sb-topnav .nav-nim{
+  font-weight: 400 !important;
+}
+
+/* 고정 nav 높이만큼 아래로 밀기 */
+body.sb-nav-fixed{ padding-top:var(--topnav-h) !important; }
+
+/* 사이드바(nav)도 topnav 아래에서 시작 */
+body.sb-nav-fixed #layoutSidenav #layoutSidenav_nav{
+  top:var(--topnav-h) !important;
+  height:calc(100vh - var(--topnav-h)) !important;
+}
+
+/* 본문 영역도 높이 맞추기 */
+body.sb-nav-fixed #layoutSidenav #layoutSidenav_content{
+  top:var(--topnav-h) !important;
+}
+
+/* 가운데 브랜드 wrapper */
+.navbar-brand-wrapper{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  display:flex;
+  align-items:center;
+}
+
+
+/* ===== Top Logo Image ===== */
+.logo-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+
+/* 로고 크기 */
+.top-logo{
+  height:110px;        /* ⬅️ 여기만 조절하면 됨 */
+  width:auto;
+  display:block;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px){
+  .top-logo{
+    height:60px;
+  }
+}
+
+
+
+/* ==============================
+   Topnav 좌우 아이콘 (햄버거 / 비로그인 유저) 대칭
+============================== */
+.sb-topnav #sidebarToggle,
+.sb-topnav .anon-user{
+  height:var(--topnav-h);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px !important;
+  border-radius:14px;
+}
+
+.sb-topnav #sidebarToggle .fa-bars,
+.sb-topnav .anon-user .fa-user{
+  font-size:2.8rem !important;
+  line-height:1;
+}
+
+/* 비로그인 화살표 숨김 */
+.sb-topnav .anon-user.dropdown-toggle::after{ display:none; }
+
+/* 로그인 상태 우측 유저 영역(닉네임) */
+
+.sb-topnav .navbar-nav .nav-link.dropdown-toggle .fa-user{ font-size:1.9rem; }
+.sb-topnav .navbar-nav .dropdown-toggle::after{
+  font-size:1.25rem;
+  margin-left:8px;
+}
+
+/* ✅ 햄버거 / 유저 아이콘 — 완전 흰색 고정 + 효과 제거 */
+.sb-topnav #sidebarToggle,
+.sb-topnav .anon-user,
+.sb-topnav .navbar-nav .nav-link.dropdown-toggle{
+  background:transparent !important;
+  color:#fff !important;
+  box-shadow:none !important;
+  border:none !important;
+}
+
+/* 아이콘 색상 흰색 고정 */
+.sb-topnav #sidebarToggle i,
+.sb-topnav .anon-user i,
+.sb-topnav .navbar-nav .fa-user{
+  color:#fff !important;
+}
+
+/* hover / focus / active 효과 완전 제거 */
+.sb-topnav #sidebarToggle:hover,
+.sb-topnav #sidebarToggle:focus,
+.sb-topnav #sidebarToggle:active,
+.sb-topnav .anon-user:hover,
+.sb-topnav .anon-user:focus,
+.sb-topnav .anon-user:active,
+.sb-topnav .navbar-nav .nav-link.dropdown-toggle:hover,
+.sb-topnav .navbar-nav .nav-link.dropdown-toggle:focus{
+  background:transparent !important;
+  color:#fff !important;
+  box-shadow:none !important;
+}
+
+
+/* 서치바 영역은 항상 가운데 */
+.search-bar-wrapper{
+  height: calc(var(--searchbar-h) + var(--searchbar-gap) + 16px) !important; /* 16px은 top에서 준 값 */
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* container-fluid가 px-4 때문에 중심이 살짝 흔들릴 수 있어서 flex로 중앙 고정 */
+.search-bar-wrapper .container-fluid{
+  display:flex;
+  justify-content:center;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
+/* Search bar padding (✅ 내부 여백 제거 + 가운데 정렬) */
+.search-bar{
+  padding:0 !important;
+  margin: 20px auto 0 !important;   /* ✅ 왼쪽 90px 제거 */
+  display: flex;
+  justify-content: center;
+}
+
+/* ✅ 핵심: 모든 페이지의 실제 본문을 서치바 아래로 내리기 */
+#layoutSidenav_content main{
+  padding-top: calc(var(--searchbar-h) + var(--searchbar-gap) + 26px) !important;
+}
+
+/* ==============================
+   Search Input (돋보기 인풋 안쪽 + 밑줄)
+============================== */
+/* 서치 입력 자체 폭을 중앙 기준 폭에 맞춤 */
+.search-input-wrap{
+  width: var(--center-w) !important;
+  max-width: 90vw;
+  margin: auto;
+  position: relative;
+}
+
+.search-input-wrap .form-control{
+  background:#fff;
+  border:none !important;
+  border-bottom:3px solid #FF6600 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+
+  height:56px;                  /* ⭐ 살짝 낮춰서 공간 절약 */
+  line-height:56px;
+  padding:0 56px 0 12px;
+  font-size:1.15rem;
+
+  text-align:center;
+}
+
+.search-input-wrap .form-control:focus{
+  outline:none !important;
+  box-shadow:none !important;
+  border-bottom:3px solid #FF6600 !important;
+}
+
+.search-input-wrap .form-control::placeholder{ color:#999; }
+
+/* 돋보기 아이콘: 인풋 안쪽 오른쪽 (✅ 아이콘만 #FF6600) */
+.search-inside-icon{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.5rem;
+  color:#FF6600;
+  cursor:pointer;
+  line-height:1;
+}
+.search-inside-icon:hover{ color:#e65c00; }
+
+/*  검색창 아래 여백 줄이는 핵심: main 상단 padding 줄이기 */
+#layoutSidenav_content main.container-fluid{
+  padding-top:0px !important;   /* ⭐ 룰렛 섹션이 위로 붙음 */
+}
+
+
+/* 2) search bar wrapper 안의 container padding도 줄이기 (SB Admin px-4 때문에 아래가 뜨는 느낌 제거) */
+.search-bar-wrapper .container-fluid{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* 3) 서치바 폼 자체도 아래 여백 제거 */
+.search-bar-wrapper form.search-bar{
+  margin-bottom: 0 !important;
+}
+
+/* 4) 본문(main) 위쪽 padding도 완전 제거 (이미 0이면 유지) */
+#layoutSidenav_content main.container-fluid{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* ==============================
+   Sidebar 
+============================== */
+
+/* ==============================
+   ✅ Sidebar - 3색 오버레이 그라데이션 (#FFF3E6, #FF9671, #FFC75F)
+============================== */
+/* ==============================
+   ✅ Sidebar - Very Soft Cream Premium
+   #FFF3E6 비율 높게, 아주 은은한 따뜻함
+============================== */
+.sb-sidenav{
+  position: relative;
+  background: #FFF3E6 !important;
+  border-right: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+.sb-sidenav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+
+  background:
+    /* 가운데 은은한 크림 하이라이트 */
+    radial-gradient(circle at 50% 40%,
+      rgba(255,255,255,0.85) 0%,
+      rgba(255,243,230,0.65) 45%,
+      rgba(255,243,230,0.00) 75%
+    ),
+
+    /* 전체를 거의 #FFF3E6로 유지 */
+    linear-gradient(180deg,
+      rgba(255,243,230,1.00) 0%,
+      rgba(255,243,230,0.98) 55%,
+      rgba(255,199,95,0.10) 80%,
+      rgba(255,150,113,0.12) 100%
+    );
+
+  backdrop-filter: blur(1.5px) saturate(1.03);
+}
+
+/* 내용은 오버레이 위로 */
+.sb-sidenav .sb-sidenav-menu,
+.sb-sidenav .nav{
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
+
+/* 메뉴 텍스트 */
+.sb-sidenav .nav-link{
+  color: #5A3A2E !important;     /* 배경이랑 어울리는 브라운 */
+  font-weight: 700;
+  font-size: 1.2rem;           /* 글자 조금 키움 */
+  padding: 14px 18px !important;/* 클릭 영역 커짐(=사이드바 커진 느낌) */
+  border-radius: 12px;
+  margin: 6px 6px;
+}
+
+/* 아이콘 */
+.sb-sidenav .sb-nav-link-icon{
+  width: 28px;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-sidenav .sb-nav-link-icon i{
+  font-size: 1.6rem !important;
+}
+
+
+
+/* hover */
+.sb-sidenav .nav-link:hover{
+  background: rgba(255,102,0,0.12) !important;
+  color: #FF6600 !important;
+}
+
+/* active */
+.sb-sidenav .nav-link.active{
+  background: rgba(255,102,0,0.18) !important;
+  color: #FF6600 !important;
+}
+
+/* ✅ "사이드바가 작아 보이는" 원인 = 내부 padding이 작음
+   메뉴 영역의 좌우 여백/폭 느낌만 키워줌 (레이아웃 영향 없음) */
+.sb-sidenav .sb-sidenav-menu{
+  padding: 16px 8px 20px 8px;
+}
+
+#layoutSidenav{
+  overflow-x: hidden;
+}
+
+
+/* ✅ 사이드바를 overlay로 (본문 안 밀림) */
+#layoutSidenav #layoutSidenav_content{
+  margin-left: 0 !important;
+}
+
+/* 기본은 숨김 */
+#layoutSidenav #layoutSidenav_nav{
+  position: fixed !important;
+  left: 0;
+  top: var(--topnav-h) !important;
+  height: calc(100vh - var(--topnav-h)) !important;
+
+  width: var(--side-w) !important;
+  transform: translateX(calc(-1 * var(--side-w)));
+  transition: transform .15s ease-in-out;
+  z-index: 10080 !important;
+}
+
+#layoutSidenav #layoutSidenav_nav .sb-sidenav{
+  width: var(--side-w) !important;
+  z-index: 10040 !important;
+}
+
+/* ✅ 접힘 상태: 사이드바 자체를 완전히 숨김(배경/그림자/클릭영역 제거) */
+body.sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav{
+  transform: translateX(calc(-1 * var(--side-w))) !important; /* 완전 밖으로 */
+  visibility: hidden !important;  /* 배경 안보이게 */
+  pointer-events: none !important; /* 클릭 방지 */
+}
+
+/* ✅ 열림 상태: 다시 보이게 */
+body:not(.sb-sidenav-toggled) #layoutSidenav #layoutSidenav_nav{
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(0) !important;
+}
+
+/* ✅ 사이드바 아이콘: FontAwesome(SVG 변환)까지 강제 적용 */
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon,
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon i,
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon svg{
+  color: #FF6600 !important;     /* 아이콘 색상 */
+  fill:  currentColor !important; /* SVG 색상 확실히 */
+}
+
+/* ✅ 아이콘 크기: svg / i 둘 다 잡기 */
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon svg,
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon i{
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  font-size: 2.4rem !important;  /* i 대비 */
+  line-height: 1 !important;
+}
+
+/* ✅ 정렬 안정 */
+#layoutSidenav_nav .sb-sidenav .sb-nav-link-icon{
+  width: 44px;
+  margin-right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==============================
+   Sidebar Logo (HOME 대체)
+============================== */
+.sidebar-logo-link{
+  width: 100%;
+  height: 120px;          /* 로고 영역 높이 */
+  display: flex;
+  align-items: center;   /* 세로 중앙 */
+  justify-content: center; /* 가로 중앙 */
+}
+
+/* 로고 이미지 */
+.sidebar-logo{
+  width: 200px;       /* ⭐ 핵심: 사이드바 폭에 맞게 */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: -30px auto 20px 30px;
+}
+
+/* 사이드바 로고: hover/focus/active 효과 완전 제거 */
+.sidebar-logo-link,
+.sidebar-logo-link:focus,
+.sidebar-logo-link:active{
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.sidebar-logo-link:hover{
+  background: transparent !important;
+}
+
+
+/* 혹시 버튼 스타일이 상속된 경우 대비 */
+.sidebar-logo-link:focus-visible{
+  outline: none !important;
+}
+
+/* 이미지 자체에도 필터/그림자 방지 */
+.sidebar-logo{
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+
+/* 모바일/좁은 화면 대응 */
+@media (max-width: 768px){
+  .sidebar-logo{
+    width: 140px;
+  }
+}
+
+/* ✅ 사이드바 로고: hover/focus/active 효과 완전 제거 (SB Admin까지 덮기) */
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link,
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link:hover,
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link:focus,
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link:active{
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transform: none !important;
+}
+
+/* ✅ 로고 이미지도 hover시 변형/필터 방지 */
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link:hover .sidebar-logo{
+  filter: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* ✅ 키보드 포커스 테두리까지 제거 */
+#layoutSidenav_nav .sb-sidenav .nav .sidebar-logo-link:focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ✅ SB Admin/Bootstrap 기본 좌우 패딩 제거 */
+#layoutSidenav_content .container-fluid.px-4,
+#layoutSidenav_content main.container-fluid.px-4,
+.search-bar-wrapper .container-fluid.px-4{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* ✅ SB Admin이 #layoutSidenav_content에 주는 왼쪽 여백(패딩/마진) 완전 제거 */
+#layoutSidenav #layoutSidenav_content{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  left: 0 !important;
+}
+
+/* ✅ sb-nav-fixed일 때도 content가 밀리지 않게 */
+body.sb-nav-fixed #layoutSidenav #layoutSidenav_content{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* ✅ main / container-fluid 기본 좌우 padding도 완전 제거 */
+#layoutSidenav_content main,
+#layoutSidenav_content .container-fluid{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* ✅ 혹시 레이아웃이 width 계산 때문에 밀리면 이것도 */
+#layoutSidenav{
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* ==============================
+   Top Navbar Dropdown (내정보 / Logout)
+============================== */
+
+/* 기본 항목 */
+.sb-topnav .dropdown-menu .dropdown-item{
+  color: #333;
+  font-weight: 600;
+}
+
+/* hover */
+.sb-topnav .dropdown-menu .dropdown-item:hover{
+  background-color: #FF6600 !important;
+  color: #fff !important;
+}
+
+/* active (클릭 중) */
+.sb-topnav .dropdown-menu .dropdown-item:active{
+  background-color: #FF6600 !important;
+  color: #fff !important;
+}
+
+/* focus (키보드 포커스) */
+.sb-topnav .dropdown-menu .dropdown-item:focus{
+  background-color: #FF6600 !important;
+  color: #fff !important;
+}
+
+/* hr 구분선 색도 톤 맞추기 (선택) */
+.sb-topnav .dropdown-menu .dropdown-divider{
+  border-color: rgba(255,102,0,0.25);
+}
+
+/* ==============================
+   Top Navbar Dropdown 텍스트 오른쪽 정렬
+============================== */
+.sb-topnav .dropdown-menu .dropdown-item{
+  text-align: center;          /* ✅ 글자 오른쪽 */
+  padding-right: 16px;        /* 오른쪽 여백 */
+  padding-left: 8px;          /* 왼쪽 여백 줄이기 */
+}
+
+
+/*자동완성*/ 
+
+#suggestions .item 
+{ 
+	padding: 8px 10px; 
+	cursor: pointer; 
+} 
+
+#suggestions .item:hover 
+{ 
+	background: #f5f5f5; 
+} 
+
+.autocompleteList 
+{ 
+	position: absolute; 
+	top: 56px; 
+	left: 0; 
+	width: 100%; 
+	background: #fff; 
+	z-index: 1000; 
+	border:1px solid #cccccc;
+} 
+
+/*하이라이트*/ 
+.highlight 
+{ 
+	color: #1e6bff; 
+	font-weight: bold; 
+} 
+
+.search-input-wrap 
+{ 
+	position: relative; 
+}
+
+
+/* ==============================
+   ✅ Search Bar 고정 (최종)
+   - wrapper는 "자리만 차지"
+   - 실제 입력창만 fixed
+============================== */
+
+:root{
+  --topnav-h: 130px;
+  --center-w: 520px;
+  --searchbar-h: 56px;   /* input 높이 */
+  --searchbar-gap: 0px; /* 서치바 아래 여백(마진 느낌) */
+  --searchbar-top-gap: 30px;
+  
+}
+
+/* ✅ 서치바 뒤로 컨텐츠가 비치지 않게 "흰 배경 마스크" */
+.searchbar-mask{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--topnav-h);
+  height: calc(var(--searchbar-top-gap) + var(--searchbar-h) + var(--searchbar-gap));
+  background: #fff;
+  z-index: 10010;
+  pointer-events: none !important;
+}
+
+
+
+/* ✅ body 패딩은 Topnav 만큼만 (원래대로) */
+body.sb-nav-fixed{
+  padding-top: var(--topnav-h) !important;
+}
+
+/* ✅ 서치바 wrapper는 fixed 금지, 대신 "자리"만 확보 */
+.search-bar-wrapper{
+  height: calc(var(--searchbar-h) + var(--searchbar-gap)) !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ form 마진 때문에 공간 벌어지는 거 제거 */
+.search-bar-wrapper form.search-bar{
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ✅ 실제 입력창은 그 위에 */
+.search-input-wrap{
+  position: fixed !important;
+  top: calc(var(--topnav-h) + var(--searchbar-top-gap)) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: var(--center-w) !important;
+  max-width: 90vw !important;
+
+  z-index: 10040 !important;
+
+  /* ✅ 투명 금지! */
+  background: #fff !important;
+  padding: 10px 0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* 자동완성 리스트는 fixed 입력창 기준으로 */
+.search-input-wrap .autocompleteList{
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+/* ==============================
+   검색창 평면 스타일 (주황 밑줄 유지)
+============================== */
+
+/* 바깥 그림자 제거 */
+.search-input-wrap{
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* input hover/focus 효과 제거 */
+.search-input-wrap .form-control,
+.search-input-wrap .form-control:hover,
+.search-input-wrap .form-control:focus,
+.search-input-wrap .form-control:active{
+  box-shadow: none !important;
+  outline: none !important;
+  background: #fff !important;
+}
+
+/* 부트스트랩 기본 focus 효과 제거 */
+.form-control:focus{
+  box-shadow: none !important;
+}
+
+/* 검색창 회색 기본 밑줄 완전 제거 */
+.search-input-wrap .form-control{
+  border: none !important;
+  border-bottom: 3px solid #FF6600 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* hover / focus 때도 회색 줄 안 생기게 */
+.search-input-wrap .form-control:hover,
+.search-input-wrap .form-control:focus,
+.search-input-wrap .form-control:active{
+  border: none !important;
+  border-bottom: 3px solid #FF6600 !important;
+  box-shadow: none !important;
+}
+
+.search-input-wrap .form-control{
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* 자동완성 박스: 비어있으면 숨겨서 회색 줄 제거 */
+#suggestions:empty{
+  display: none !important;
+  border: 0 !important;
+}
+
+/* 혹시 show/hide 섞일 때 대비 */
+#suggestions{
+  border: 0 !important;          /* 기본은 테두리 없음 */
+}
+#suggestions:not(:empty){
+  display: block !important;
+  border: 1px solid #cccccc !important; /* 내용 있을 때만 테두리 */
+}
+
+/* ✅ 페이지 스크롤 1개 (body로 스크롤) */
+html, body{
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+#layoutSidenav, #layoutSidenav_content, #layoutSidenav_content main{
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* ✅ SB Admin 내부 스크롤 제거 (content는 늘어나게) */
+#layoutSidenav,
+#layoutSidenav #layoutSidenav_content{
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* ✅ top: 로 content를 밀어버리는거 금지 (내부 스크롤 원인) */
+body.sb-nav-fixed #layoutSidenav #layoutSidenav_content{
+  position: static !important;
+  top: auto !important;
+}
+
+html, body{
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* 내부 스크롤 막기 */
+#layoutSidenav,
+#layoutSidenav #layoutSidenav_content,
+/* ✅ 본문은 무조건 마스크 아래에서 시작 */
+#layoutSidenav_content main{
+  padding-top: calc(var(--searchbar-top-gap) + var(--searchbar-h) + 6px) !important;
+}
+

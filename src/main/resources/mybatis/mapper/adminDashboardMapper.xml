@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.AdminDashboardDAO">
+
+    <!-- 전체 회원 수 -->
+    <select id="totalMembers" resultType="int">
+        SELECT COUNT(*) FROM MEMBER2
+    </select>
+
+    <!-- 오늘 신규 가입 -->
+    <select id="todayNewMembers" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER2
+        WHERE TRUNC(m_date) = TRUNC(SYSDATE)
+    </select>
+
+    <!-- 오늘 작성된 게시물 -->
+    <select id="todayNewPosts" resultType="int">
+        SELECT COUNT(*)
+        FROM NOTICE
+        WHERE TRUNC(no_date) = TRUNC(SYSDATE)
+    </select>
+
+    <!-- QnA 수 (답변 안 된 것만) -->
+    <select id="qnaCount" resultType="int">
+	  SELECT COUNT(*)
+	  FROM QUESTION q
+	  WHERE NOT EXISTS (
+	    SELECT 1 FROM ANSWER a
+	    WHERE a.Q_NO = q.Q_NO
+	  )
+	</select>
+
+
+</mapper>

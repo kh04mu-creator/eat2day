@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.questionDAO">
+
+  <select id="q_listDao" resultType="com.study.springboot.dto.questionDTO">
+    SELECT
+      q.q_no,
+      q.q_title,
+      q.q_date,
+      q.q_content,
+      q.q_secret,
+      q.m_no,
+      m.m_nickname
+    FROM question q
+    LEFT JOIN member2 m
+      ON m.m_no = q.m_no
+    ORDER BY q.q_no DESC
+  </select>
+
+  <select id="q_viewDao" parameterType="string" resultType="com.study.springboot.dto.questionDTO">
+    SELECT
+      q.q_no,
+      q.q_title,
+      q.q_date,
+      q.q_content,
+      q.q_secret,
+      q.m_no,
+      m.m_nickname
+    FROM question q
+    LEFT JOIN member2 m
+      ON m.m_no = q.m_no
+    WHERE q.q_no = #{q_no}
+  </select>
+
+  <!-- ⭐ PK를 VARCHAR2(6)로 자동 생성: Q + 5자리 -->
+  <insert id="q_writeDao" parameterType="com.study.springboot.dto.questionDTO">
+    INSERT INTO question(q_no, q_title, q_date, q_content, q_secret, m_no)
+    VALUES(
+      'Q' || LPAD(QUESTION_SEQ.NEXTVAL, 5, '0'),
+      #{q_title},
+      SYSDATE,
+      #{q_content},
+      NVL(#{q_secret}, 'N'),
+      #{m_no}
+    )
+  </insert>
+
+  <delete id="q_deleteDao" parameterType="string">
+    DELETE FROM question WHERE q_no = #{q_no}
+  </delete>
+
+  <update id="q_updateDao" parameterType="com.study.springboot.dto.questionDTO">
+    UPDATE question
+    SET q_title = #{q_title},
+    	q_date = SYSDATE,
+        q_content = #{q_content},
+        q_secret = NVL(#{q_secret}, 'N')
+    WHERE q_no = #{q_no}
+  </update>
+
+</mapper>

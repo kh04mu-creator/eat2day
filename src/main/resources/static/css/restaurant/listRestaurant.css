@@ -1,0 +1,83 @@
+@charset "UTF-8";
+/* 전체 레이아웃 */
+.admin-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 카드 */
+.card {
+  border-radius: 16px;
+}
+
+/* 테이블 */
+table th {
+  font-size: 13px;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+table td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* 배지 */
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+/* 버튼 */
+.btn-sm {
+  padding: 6px 14px;
+}
+
+/* 관리자센터 버튼(네모 + 둥근 모서리) */
+.btn-dashboard {
+  border-radius: 10px; /* ← 핵심 */
+  font-weight: 600;
+}
+
+.cursor{
+	cursor: pointer;
+}
+
+.place-name-col{
+	color: #e65c00;
+	font-weight: 600;
+}
+
+/* 오렌지 버튼 */
+.btn-orange {
+  background-color: #FF6600;
+  border-color: #FF6600;
+  color: #fff;
+}
+.btn-orange:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+  color: #fff;
+}
+
+.title_size{
+		height: 200px;
+		background-color: #F0E6DB41;
+		margin-top: -25px;
+		margin-bottom: 50px;
+		border-bottom: 1px solid #eee;
+    	position: relative;
+	}
+	
+	.title_inner{
+		text-align:center;
+		padding:60px;
+		height:200px;
+	}
+	
+	.title_font{
+		font-size: 50px;
+		font-weight: bold;
+		color: #998e8e;
+		letter-spacing: 10px;
+	}

@@ -1,0 +1,128 @@
+@charset "UTF-8";
+.admin-wrap { max-width: 980px; margin: 0 auto; }
+.page-title { font-weight: 800; margin: 6px 0 12px; }
+
+/* 카드 */
+.qna-item{
+  border:1px solid #e9ecef;
+  border-radius:14px;
+  padding:12px 14px;
+  margin-bottom:10px;
+  background:#fff;
+}
+
+.qna-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.qna-badges{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+
+.qna-title{
+  font-weight:800;
+  font-size:16px;
+  margin:6px 0 2px;
+}
+
+.qna-meta{
+  color:#868e96;
+  font-size:12px;
+  margin:0 0 6px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+/* 뱃지 */
+.badge-done { background:#FF6600; }
+.badge-wait { background:#adb5bd; }
+.badge-secret { background:#111; }
+
+/* ✅ 버튼 컬러: 주황 + 회색 */
+.btn-orange{
+  background-color:#FF6600;
+  border-color:#FF6600;
+  color:#fff;
+}
+.btn-orange:hover{
+  background-color:#e65c00;
+  border-color:#e65c00;
+  color:#fff;
+}
+.btn-gray{
+  background-color:#adb5bd;
+  border-color:#adb5bd;
+  color:#fff;
+}
+.btn-gray:hover{
+  background-color:#9aa0a6;
+  border-color:#9aa0a6;
+  color:#fff;
+}
+
+.btn-mini{
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:999px;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+/* 질문 내용 박스 */
+.question-box{
+  background:#fafafa;
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:10px 12px;
+  margin-top:6px;
+}
+
+/* 3줄 요약 + 더보기 */
+.clamp-3{
+  white-space:pre-wrap;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+}
+.clamp-3.open{ -webkit-line-clamp:unset; }
+
+.more-btn{
+  border:none;
+  background:none;
+  padding:0;
+  margin-top:6px;
+  color:#FF6600;
+  font-size:12px;
+  cursor:pointer;
+}
+
+/* 비밀 안내 */
+.secret-hint{
+  margin:6px 0 0;
+  font-size:12px;
+  color:#6c757d;
+}
+
+/* 답변 박스 */
+.answer-box{
+  background:#fff7f0;
+  border:1px solid #ffd1b3;
+  border-radius:10px;
+  padding:10px 12px;
+  margin-top:8px;
+}
+.answer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.answer-title{
+  font-weight:700;
+  color:#FF6600;
+  font-size:13px;
+}

@@ -1,0 +1,52 @@
+@charset "UTF-8";
+.admin-wrap { max-width: 1000px; margin: 0 auto; }
+
+.title_size{
+		height: 200px;
+		background-color: #F0E6DB41;
+		margin-top: -80px;
+		margin-bottom: 50px;
+		border-bottom: 1px solid #eee;
+    	position: relative;
+	}
+	
+	.title_inner{
+		text-align:center;
+		padding:60px;
+		height:200px;
+	}
+	
+	.title_font{
+		font-size: 50px;
+		font-weight: bold;
+		color: #998e8e;
+		letter-spacing: 10px;
+	}
+
+
+
+.stat-card {
+  border: 1px solid #eef1f6;
+  border-radius: 18px;
+  background: #fff;
+  padding: 18px;
+  height: 100%;
+}
+.stat-label { color:#7b8190; font-size: 13px; }
+.stat-value { font-size: 26px; font-weight: 800; margin-top: 8px; }
+
+.menu-card{
+  border: 1px solid #eef1f6;
+  border-radius: 18px;
+  background: #fff;
+  padding: 22px;
+  height: 100%;
+  transition: transform .08s ease, box-shadow .08s ease;
+}
+.menu-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(17,24,39,0.08);
+}
+.menu-title { font-weight: 800; font-size: 16px; }
+.menu-desc { color:#7b8190; font-size: 13px; margin-top: 6px; }
+a.card-link { text-decoration:none; color:inherit; display:block; height:100%; }

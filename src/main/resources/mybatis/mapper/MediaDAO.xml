@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.MediaDAO">
+
+  <!-- 리뷰 등록 -->
+  <insert id="insertReview" parameterType="com.study.springboot.dto.MediaDTO">
+    INSERT INTO MEDIA (PLACE_ID, TYPE, CONTENT, RATING, WRITER)
+    VALUES (#{placeId}, #{type}, #{content}, #{rating}, #{writer})
+  </insert>
+  <!-- 리뷰 리스트 -->
+ <select id="selectReviewsByPlace" resultType="com.study.springboot.dto.MediaDTO">
+	  SELECT
+	    m.ME_NO        AS me_no,
+	    m.PLACE_ID     AS placeId,
+	    m.TYPE         AS type,
+	    m.CONTENT      AS content,
+	    m.RATING       AS rating,
+	    m.WRITER       AS writer,
+	    mb.M_NICKNAME  AS writerNickname
+	  FROM MEDIA m
+	  LEFT JOIN MEMBER2 mb ON mb.M_NO = m.WRITER
+	  WHERE m.PLACE_ID = #{placeId}
+	    AND m.TYPE = 'review'
+	  ORDER BY m.ME_NO DESC
+	</select>
+
+  <!-- 🔹 이미지/리뷰 조회 -->
+  <select id="selectMediaByPlaceIdAndType"
+          resultType="com.study.springboot.dto.MediaDTO">
+    SELECT
+      ME_NO    AS me_no,
+      PLACE_ID AS placeId,
+      TYPE     AS type,
+      CONTENT  AS content,
+      RATING   AS rating,
+      WRITER   AS writer
+    FROM MEDIA
+    WHERE PLACE_ID = #{placeId}
+      AND TYPE = #{type}
+    ORDER BY ME_NO DESC
+  </select>
+  
+  <select id="selectMediaById" resultType="com.study.springboot.dto.MediaDTO">
+	  SELECT
+	    ME_NO    AS me_no,
+	    PLACE_ID AS placeId,
+	    TYPE AS type,
+	    CONTENT AS content,
+	    RATING AS rating,
+	    WRITER AS writer
+	  FROM MEDIA
+	  WHERE ME_NO = #{me_no}
+	</select>
+	
+	<delete id="deleteMediaById">
+	  DELETE FROM MEDIA
+	  WHERE ME_NO = #{me_no}
+	</delete>
+
+</mapper>
