@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " //mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.EmailAuthDAO">
+	<select id="selectAuthCode" resultType="com.study.springboot.dto.EmailAuthDTO">
+		select * from emailauth
+		 where e_email = #{e_email}
+		 and e_code = #{e_code}
+		 and e_verified = 'N'
+		 and expiredat > SYSDATE
+	</select>
+	<insert id="insertAuthCode">
+		insert into emailauth(e_id, e_email, e_code, expiredat)
+		values(emailauth_seq.nextval, #{e_email}, #{e_code}, #{expiredat})
+	</insert>
+	<update id="verifyEmail">
+		update emailauth
+		set e_verified = 'Y'
+		where e_email = #{e_email}
+	</update>
+	<select id="isEmailVerified" resultType="int">
+		select count(*) from emailauth
+		where e_email = #{e_email}
+		and e_verified = 'Y'
+		and expiredat > sysdate
+	</select>
+	<delete id="deleteByEmail">
+		delete from emailauth where e_email = #{e_email}
+	</delete>
+</mapper>

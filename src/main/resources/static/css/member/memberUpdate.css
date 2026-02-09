@@ -1,0 +1,199 @@
+@charset "UTF-8";
+/* ====== 카드 컨테이너 ====== */
+.auth-container{
+    width: 1000px;
+    height: 620px;
+    margin: -20px auto 0 auto;   /* ✅ 검색바 아래로 */
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    background: #fff;
+    position: relative;
+}
+
+/* ====== 오른쪽 폼 영역 ====== */
+.auth-form{
+    position: absolute;
+    top: 0;
+    left: 50%;              /* ✅ 오른쪽 반 */
+    width: 50%;
+    height: 100%;           /* ⭐ 꼭 필요 */
+    padding: 60px 50px;
+    background: #fff;
+    overflow-y: auto;
+    z-index: 5;
+}
+
+.auth-form h2{
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 28px;
+}
+
+/* 라벨/인풋 */
+.auth-form label{
+    display:block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.auth-form .readonly{
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    color: #555;
+    text-align: left;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"]{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:6px;
+    border:1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.auth-form input:focus{
+    outline:none;
+    border-color:#FF6600;
+    box-shadow:0 0 0 2px rgba(255,102,0,0.2);
+}
+
+/* 주소찾기 버튼 */
+.addr-btn{
+    margin-top: 8px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}
+.addr-btn:hover{
+    border-color:#FF6600;
+    color:#FF6600;
+}
+
+/* 하단 버튼 그룹 */
+.btn-group{
+    margin-top: 30px;
+    display:flex;
+    gap:10px;
+}
+
+.btn-group button{
+    flex:1;
+    padding:12px;
+    border-radius:6px;
+    border:none;
+    font-size:15px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.btn-primary-custom{
+    background:#FF6600;
+    color:#fff;
+}
+.btn-primary-custom:hover{ background:#e65c00; }
+
+.btn-secondary-custom{
+    background:#999;
+    color:#fff;
+}
+
+/* ====== 왼쪽 오버레이 ====== */
+.overlay-container{
+    position: absolute;
+    top: 0;
+    left: 0;               /* ✅ 왼쪽 반 */
+    width: 50%;
+    height: 100%;          /* ⭐ 꼭 필요 */
+    overflow: hidden;
+    z-index: 10;
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #FF6600, #ff944d);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.overlay-panel{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+    box-sizing: border-box;
+}
+
+.overlay-panel h2{ font-size:32px; margin: 0 0 15px 0; }
+.overlay-panel p{ font-size:15px; margin: 0; opacity:0.9; line-height:1.6; }
+
+.overlay-panel .icon{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    border:2px solid #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+/* ====== 소셜 계정 비밀번호 설정 안내 배너 ====== */
+.social-warning{
+  margin: 0 0 18px 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fff7f0;
+  border: 1px solid rgba(255,102,0,0.25);
+}
+
+.social-warning-title{
+  font-weight: 900;
+  color: #7a3b00;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.social-warning-text{
+  color: #7a3b00;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.social-warning-btn{
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #FF6600;
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.social-warning-btn:hover{
+  background: #e65c00;
+  color: #fff;
+}
+
+/* main/여백 제거(혹시 남아있으면) */
+#layoutSidenav_content main.container-fluid{ padding-top: 0 !important; }
+#layoutSidenav_content .px-4{ padding-top: 0 !important; }
+body{ margin:0 !important; padding:0 !important; }

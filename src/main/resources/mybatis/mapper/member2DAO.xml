@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " //mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.member2DAO">
+
+  <select id="m_listDao" resultType="com.study.springboot.dto.member2DTO">
+    select * from member2 order by m_no desc
+  </select>
+
+  <select id="m_viewDao" resultType="com.study.springboot.dto.member2DTO">
+    select * from member2 where m_no = #{m_no}
+  </select>
+
+  <select id="findByUserId" resultType="com.study.springboot.dto.member2DTO">
+  select m_no,
+         TRIM(m_email) as m_email,
+         TRIM(m_pw)    as m_pw,
+         m_name,
+         m_nickname,
+         m_auth,
+         m_verified,
+         m_provider,
+         m_provider_id
+  from member2
+  where TRIM(m_email) = TRIM(#{userId})
+</select>
+	<select id="selectNicknameByMno" resultType="com.study.springboot.dto.member2DTO">
+		  SELECT m_nickname
+		  FROM member2
+		  WHERE m_no = #{mno}
+	</select>
+
+
+  <select id="findByProvider" resultType="com.study.springboot.dto.member2DTO">
+    select m_no, m_email, m_pw, m_name, m_nickname, m_auth, m_verified, m_provider, m_provider_id
+    from member2
+    where m_provider = #{provider}
+      and m_provider_id = #{providerId}
+  </select>
+  
+  <select id="countByNickname" parameterType="string" resultType="int">
+	    SELECT COUNT(*)
+	    FROM member2
+	    WHERE m_nickname = #{m_nickname}
+	</select>
+	
+	<select id="nextMemberNo" resultType="string">
+  SELECT 'M'||LPAD(member2_seq.NEXTVAL, 5, '0') FROM dual
+</select>
+	
+
+  <!-- ✅ 일반 회원가입 -->
+<insert id="m_writeDao" parameterType="com.study.springboot.dto.member2DTO">
+  INSERT INTO member2 (
+    m_no, m_email, m_pw, m_name, m_nickname, m_gender, m_birth, m_tel, m_addr, m_date, m_auth,
+    m_verified, m_provider, m_provider_id
+  ) VALUES (
+    #{m_no},
+    #{m_email}, #{m_pw}, #{m_name}, #{m_nickname}, #{m_gender}, #{m_birth}, #{m_tel}, #{m_addr},
+    SYSDATE, 'ROLE_USER',
+    'Y', 'local', #{m_email}
+  )
+</insert>
+
+
+
+
+
+  <!-- ✅ 소셜 회원가입(자동 생성) -->
+  <insert id="m_writeSocialDao">
+	  insert into member2(
+	    m_no, m_email, m_pw, m_name, m_nickname, m_gender, m_birth, m_tel, m_addr, m_date, m_auth,
+	    m_provider, m_provider_id
+	  )
+	  values(
+	    'M'||LPAD(member2_seq.nextval, 5, '0'),
+	    #{m_email, jdbcType=VARCHAR},
+	    #{m_pw, jdbcType=VARCHAR},
+	    #{m_name, jdbcType=VARCHAR},
+	    #{m_nickname, jdbcType=VARCHAR},
+	    #{m_gender, jdbcType=VARCHAR},
+	    #{m_birth, jdbcType=VARCHAR},
+	    #{m_tel, jdbcType=VARCHAR},
+	    #{m_addr, jdbcType=VARCHAR},
+	    SYSDATE,
+	    'ROLE_USER',
+	    #{m_provider, jdbcType=VARCHAR},
+	    #{m_provider_id, jdbcType=VARCHAR}
+	  )
+	</insert>
+
+
+  <!-- ✅ 회원정보 수정: m_name 포함 (요청사항) -->
+  <update id="m_updateDao">
+    update member2
+       set m_pw = #{m_pw},
+           m_name = #{m_name},
+           m_nickname = #{m_nickname},
+           m_tel = #{m_tel},
+           m_addr = #{m_addr}
+     where m_no = #{m_no}
+  </update>
+
+  <update id="verifyEmail">
+    update member2
+       set m_verified = 'Y'
+     where m_email = #{m_email}
+  </update>
+
+  <delete id="m_deleteDao">
+    delete from member2 where m_no = #{m_no}
+  </delete>
+
+</mapper>

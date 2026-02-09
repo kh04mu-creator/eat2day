@@ -1,0 +1,456 @@
+@charset "UTF-8";
+body {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: #ffffff;
+}
+
+
+/* ==============================
+   ✅ Roulette 
+============================== */
+
+/* 래퍼: 바깥 베젤(얇게) + 그림자 */
+.roulette-wrapper{
+  position: relative;
+  width: var(--center-w);
+  height: var(--center-w);
+  margin: -20px auto 40px;
+  border-radius: 50%;
+
+  background: var(--ring-color);
+  padding: var(--ring);
+  box-sizing: border-box;
+
+  /* 그림자만 바깥으로(입체감) */
+  box-shadow: 0 18px 28px rgba(0,0,0,0.16);
+}
+
+
+
+/* ✅ 실제 돌아가는 원판 */
+#roulette{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background-clip: padding-box;
+
+  /* ✅ 테두리/림/회색효과 전부 제거 */
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+
+  transition: transform 3s cubic-bezier(0.17, 0.67, 0.23, 0.99);
+  will-change: transform, filter;
+}
+
+/* ✅ 가운데 흰 원(별 배경) */
+#roulette::before{
+  content:"";
+  position:absolute;
+  width: 120px;          /* 원하는 크기로 조절 */
+  height: 120px;
+  background: #fff;
+  border-radius: 50%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;            /* 별(5)보다 아래 */
+}
+
+
+
+
+/* 가운데 별(기존 유지) */
+#roulette::after{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  background:#FF6600;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:5;
+
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+
+  box-shadow:
+    0 10px 18px rgba(0,0,0,0.18),
+    inset 0 0 0 4px rgba(255,255,255,0.45);
+}
+
+/* ✅ 전구 링 (12개) */
+/* ✅ 전구 링 (가운데 전구 제거) */
+.roulette-wrapper::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events:none;
+
+  /* 가운데 전구 제거 */
+  background: transparent;
+
+  --r: 205px;
+
+  box-shadow:
+    calc(var(--r) * 1.00) calc(var(--r) * 0.00) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * 0.87) calc(var(--r) * 0.50) 0 0 rgba(255,255,255,0.90),
+    calc(var(--r) * 0.50) calc(var(--r) * 0.87) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * 0.00) calc(var(--r) * 1.00) 0 0 rgba(255,255,255,0.88),
+    calc(var(--r) * -0.50) calc(var(--r) * 0.87) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * -0.87) calc(var(--r) * 0.50) 0 0 rgba(255,255,255,0.90),
+    calc(var(--r) * -1.00) calc(var(--r) * 0.00) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * -0.87) calc(var(--r) * -0.50) 0 0 rgba(255,255,255,0.88),
+    calc(var(--r) * -0.50) calc(var(--r) * -0.87) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * 0.00) calc(var(--r) * -1.00) 0 0 rgba(255,255,255,0.90),
+    calc(var(--r) * 0.50) calc(var(--r) * -0.87) 0 0 rgba(255,255,255,0.95),
+    calc(var(--r) * 0.87) calc(var(--r) * -0.50) 0 0 rgba(255,255,255,0.88);
+
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.75))
+          drop-shadow(0 0 12px rgba(255,220,150,0.45));
+
+  animation: bulbs 1.6s ease-in-out infinite;
+}
+
+
+@keyframes bulbs{
+  0%,100% { opacity: .85; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.roulette-wrapper::after{
+  animation: bulbBlink 1.8s ease-in-out infinite;
+}
+
+
+
+
+/* 포인터(기존 유지, 그림자만 자연스럽게) */
+#pointer{
+  position:absolute;
+  top:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0; height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:44px solid #FF4500;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.16));
+  z-index:20;
+}
+
+
+/* ✅ 스핀 중: “톤업 + 살짝 글로우” */
+#roulette.spinning-tone {
+  animation: toneDeepen 3s ease-in-out forwards;
+}
+
+@keyframes toneDeepen {
+  0% {
+    filter: saturate(1.02) brightness(1.02) contrast(1.00);
+  }
+  50% {
+    filter: saturate(1.16) brightness(1.03) contrast(1.04);
+  }
+  100% {
+    filter: saturate(1.22) brightness(1.02) contrast(1.08);
+  }
+}
+
+/* ===== 중앙 결과 박스: 등장 애니메이션 추가 ===== */
+.center-result-box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  opacity: 0;
+
+  min-width: 260px;
+  padding: 14px 18px;
+
+  background: rgba(255, 243, 230, 0.96);
+  border: 2px solid rgba(255, 102, 0, 0.55);
+  border-radius: 18px;
+
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.16),
+    inset 0 0 0 3px rgba(255,255,255,0.75);
+
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition: transform .22s ease, opacity .22s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.center-result-box.show{
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.center-result{
+  font-size: 24px;
+  font-weight: 900;
+  color: #FF4500;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.center-result-box:hover{
+  transform: translate(-50%, -50%) scale(1.03);
+  border-color: rgba(255, 102, 0, 0.78);
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.18),
+    inset 0 0 0 3px rgba(255,255,255,0.82);
+}
+
+/* ==============================
+   🎯 룰렛 돌리기: 이미지 같은 원형 버튼
+============================== */
+/* ==============================
+   🔴 START 버튼 (그림자 약하게 + 깔끔)
+============================== */
+.spin-start-btn{
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  font-size: 17px;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.22);
+
+  /* 바깥 링(베젤) */
+  background: radial-gradient(circle at 35% 30%,
+    #ffffff 0%,
+    #f1f1f1 38%,
+    #d6d6d6 72%,
+    #c9c9c9 100%
+  );
+
+  /* ✅ 기본 그림자 약하게 */
+  box-shadow:
+    0 10px 16px rgba(0,0,0,0.14),
+    inset 0 2px 0 rgba(255,255,255,0.85),
+    inset 0 -2px 0 rgba(0,0,0,0.06);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: box-shadow .12s ease, filter .12s ease;
+  isolation: isolate;
+}
+
+/* 안쪽 빨간 원 */
+.spin-start-btn::before{
+  content:"";
+  position:absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    #FF4500
+  );
+
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,0.22),
+    inset 0 -6px 10px rgba(0,0,0,0.16);
+
+  z-index: 0;
+}
+
+/* 텍스트가 위로 */
+.spin-start-btn > span{
+  position: relative;
+  z-index: 2;
+}
+
+/* ✅ hover: 거의 변화 없게(그림자만 살짝) */
+.spin-start-btn:hover{
+  box-shadow:
+    0 12px 18px rgba(0,0,0,0.16),
+    inset 0 2px 0 rgba(255,255,255,0.88),
+    inset 0 -2px 0 rgba(0,0,0,0.06);
+}
+
+/* 눌림 */
+.spin-start-btn:active{
+  filter: brightness(0.98);
+}
+
+/* 비활성 */
+.spin-start-btn:disabled{
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.25);
+}
+
+/* 📌 룰렛 오른쪽 위 위치 */
+.spin-start-btn.spin-in-wheel{
+  position: absolute;
+  top: -50px;
+  right: 14px;
+  margin: 0;
+  z-index: 60;
+}
+
+
+
+
+
+/* ==============================
+   🔥 인기 검색어 TOP 10 퀵바 (Slim + Dotted)
+============================== */
+#topKeywordQuickbar{
+  position: absolute;
+  top: -30px; /* 타이틀 근처 높이로 */
+  right: -400px;   /* "home-center 기준" 바깥으로 빼서 옆에 붙이기 */
+  width: 210px;
+
+  background: #FFF3E6;
+  border-radius: 14px;
+  padding: 14px 14px 10px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+  z-index: 900;
+}
+
+
+/* 제목 */
+#topKeywordQuickbar h5{
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #FF6600;
+  text-align: center;
+}
+
+/* 리스트 */
+#topKeywordQuickbar ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 아이템 */
+#topKeywordQuickbar ul li{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #333;
+
+  cursor: pointer;
+  position: relative;
+
+  transition: transform .18s ease, color .18s ease;
+}
+
+/* ✅ 점선 구분선 */
+#topKeywordQuickbar ul li:not(:last-child)::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-bottom: 1px dashed rgba(255,102,0,0.6);
+}
+
+/* ✅ 번호 뱃지 */
+#topKeywordQuickbar ul li::before{
+  content: attr(data-rank);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background: #FF6600;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+
+  flex-shrink: 0;
+}
+
+/* ✅ hover – 살짝 이동 + 색 강조 */
+#topKeywordQuickbar ul li:hover{
+  transform: translateX(6px);
+  color: #FF6600;
+}
+
+/* ✅ 화면이 좁아지면 퀵바가 화면 밖으로 나가니까 안쪽으로 넣기 */
+@media (max-width: 1200px){
+  #topKeywordQuickbar{
+    right: 10px;     /* 화면 안쪽 */
+    top: calc(var(--searchbar-h) + 10px);
+  }
+}
+
+
+/* ==============================
+   📱 모바일에서는 숨김
+============================== */
+@media (max-width: 768px){
+  #topKeywordQuickbar{
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+/* ✅ 중앙 폭 기준 */
+:root{
+  --center-w: 440px;
+  --ring: 26px;          /* ✅ 바깥 링 두께 */
+  --ring-color: #FFB37A; /* ✅ 링 색 */
+
+}
+
+/* ✅ 홈 중앙 래퍼 */
+.home-center{
+  width: var(--center-w);
+  max-width: 90vw;
+  position: relative;     /* 퀵바 absolute 기준 */
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0 !important;
+  }
+

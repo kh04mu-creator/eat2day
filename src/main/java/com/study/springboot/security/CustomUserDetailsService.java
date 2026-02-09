@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userId)
             throws UsernameNotFoundException {
 
-        member2DTO member = memberDao.findByUserId(userId);
+        member2DTO member = memberDao.findByUserId(userId.trim());
 
         if (member == null) {
             throw new UsernameNotFoundException("사용자 없음");

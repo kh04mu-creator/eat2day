@@ -1,0 +1,41 @@
+@charset "UTF-8";
+.qna-wrap { max-width: 900px; margin: 0 auto; }
+.qna-item { border:1px solid #eee; border-radius:14px; padding:14px 16px; margin-bottom:10px; background:#fff; }
+.qna-title { font-weight:700; font-size:16px; margin:0; }
+.qna-meta { color:#888; font-size:12px; margin-top:6px; display:flex; gap:10px; align-items:center; }
+.badge-done { background:#FF6600; color: #fff;}
+.badge-wait { background:#adb5bd; }
+.toggle-btn { border:none; background:transparent; color:#999; font-size:18px; }
+.panel { margin-top: 12px; padding: 12px; border-radius: 12px; background: #fafafa; border:1px solid #eee; display:none; }
+.panel-title { font-weight:700; margin-bottom:8px; }
+.answer-one { padding:10px 0; border-bottom:1px dashed #ddd; }
+.answer-one:last-child { border-bottom:none; }
+
+/* ✅ 버튼 컬러: 주황 + 회색 */
+.btn-orange{
+  background-color:#FF6600;
+  border-color:#FF6600;
+  color:#fff;
+}
+.btn-orange:hover{
+  background-color:#e65c00;
+  border-color:#e65c00;
+  color:#fff;
+}
+.btn-gray{
+  background-color:#adb5bd;
+  border-color:#adb5bd;
+  color:#fff;
+}
+.btn-gray:hover{
+  background-color:#9aa0a6;
+  border-color:#9aa0a6;
+  color:#fff;
+}
+.btn-mini{
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:999px;
+  line-height:1.2;
+  white-space:nowrap;
+}

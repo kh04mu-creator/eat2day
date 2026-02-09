@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.noticeDAO">
+	<select id="no_listDao" resultType="com.study.springboot.dto.noticeDTO">
+		select * from notice order by no_no desc
+	</select>
+	<select id="no_viewDao" resultType="com.study.springboot.dto.noticeDTO">
+		select * from notice where no_no = #{param1}
+	</select>
+	<insert id="no_writeDao">
+		insert into notice(no_no,no_title,no_date,no_content,no_upload)
+		 values(notice_seq.nextval,#{no_title},SYSDATE,#{no_content},#{no_upload})
+	</insert>
+	<delete id="no_deleteDao">
+		delete from notice where no_no = #{param1}
+	</delete>
+	<update id="no_updateDao" parameterType="com.study.springboot.dto.noticeDTO">
+	  update notice
+	  <set>
+	    no_title = #{no_title},
+	    no_date = SYSDATE,
+	    no_content = #{no_content}
+	    <if test="no_upload != null and no_upload != ''">
+	      , no_upload = #{no_upload}
+	    </if>
+	  </set>
+	  where no_no = #{no_no}
+	</update>
+
+</mapper>

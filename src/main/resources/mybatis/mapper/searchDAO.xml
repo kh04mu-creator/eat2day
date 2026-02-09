@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " //mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.searchDAO">
+ <!-- 키워드 존재 여부 -->
+    <select id="existsKeyword" resultType="int">
+        SELECT COUNT(*)
+        FROM SEARCH
+        WHERE S_KEYWORD = #{s_keyword}
+    </select>
+
+    <!-- 신규 키워드 저장 -->
+    <insert id="insertKeyword">
+        INSERT INTO SEARCH (S_NO, S_KEYWORD, S_COUNT)
+        VALUES ('S' || LPAD(SEARCH_SEQ.NEXTVAL, 5, '0'),
+                #{s_keyword},
+                1)
+    </insert>
+
+    <!-- 검색 횟수 증가 -->
+    <update id="increaseCount">
+        UPDATE SEARCH
+        SET S_COUNT = S_COUNT + 1
+        WHERE S_KEYWORD = #{s_keyword}
+    </update>
+
+    <!-- 인기 검색어 TOP 10 -->
+    <select id="topKeywords" resultType="com.study.springboot.dto.searchDTO">
+        SELECT S_NO, S_KEYWORD, S_COUNT
+        FROM (
+            SELECT S_NO, S_KEYWORD, S_COUNT
+            FROM SEARCH
+            ORDER BY S_COUNT DESC
+        )
+        WHERE ROWNUM &lt;= 10
+    </select>
+    <!--  키워드 조회  -->
+	<select id="findByKeyword" resultType="com.study.springboot.dto.searchDTO"> 
+		SELECT S_NO, S_KEYWORD, S_COUNT 
+		FROM SEARCH WHERE S_KEYWORD = #{s_keyword} 
+	</select>
+</mapper>

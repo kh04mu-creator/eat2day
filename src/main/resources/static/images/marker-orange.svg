@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96">
+
+  <!-- 바닥 그림자 -->
+  <ellipse cx="32" cy="88" rx="18" ry="7" fill="black" opacity="0.28"></ellipse>
+
+  <!-- 주황 핀 -->
+  <path d="M32 0C14.3 0 0 14.3 0 32
+           c0 23.8 32 60 32 60s32-36.2 32-60
+           C64 14.3 49.7 0 32 0z" fill="#ff6600"></path>
+
+  <!-- ⭐ 초대형 흰 별 -->
+  <text x="32" y="56" text-anchor="middle" font-size="64" font-weight="900" fill="white" stroke="#ff6600" stroke-width="2">★</text>
+
+</svg>

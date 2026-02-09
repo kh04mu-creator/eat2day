@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.answerDAO">
+
+  <select id="a_listByQno" parameterType="string" resultType="com.study.springboot.dto.answerDTO">
+    SELECT a_no, a_date, a_content, q_no
+    FROM answer
+    WHERE q_no = #{q_no}
+    ORDER BY a_no ASC
+  </select>
+  
+  <select id="a_countByQno" resultType="com.study.springboot.dto.AnswerCountDTO">
+	  SELECT q_no, COUNT(*) AS cnt
+	   FROM answer
+	   GROUP BY q_no
+  </select>
+  
+  <select id="a_latestByQuestion" resultType="com.study.springboot.dto.AnswerLatestDTO">
+  SELECT q_no, a_no, a_content, a_date
+  FROM (
+    SELECT a.q_no, a.a_no, a.a_content, a.a_date,
+           ROW_NUMBER() OVER (PARTITION BY a.q_no ORDER BY a.a_no DESC) rn
+    FROM answer a
+  )
+  WHERE rn = 1
+</select>
+
+	  
+  <insert id="a_writeDao" parameterType="com.study.springboot.dto.answerDTO">
+    INSERT INTO answer(a_no, a_date, a_content, q_no)
+    VALUES(
+      'A' || LPAD(ANSWER_SEQ.NEXTVAL, 5, '0'),
+      SYSDATE,
+      #{a_content},
+      #{q_no}
+    )
+  </insert>
+
+  <delete id="a_deleteDao" parameterType="string">
+    DELETE FROM answer WHERE a_no = #{a_no}
+  </delete>
+
+</mapper>

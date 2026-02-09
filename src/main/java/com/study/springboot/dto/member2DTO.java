@@ -15,6 +15,9 @@ public class member2DTO {
 	private String m_birth;
 	private String m_tel;
 	private String m_addr;
-	private Date m_Date;
+	private Date m_date;
 	private String m_auth;
+	private String m_verified;
+	private String m_provider;      // local / google / kakao
+	private String m_provider_id;   // 소셜 고유 ID	
 }
