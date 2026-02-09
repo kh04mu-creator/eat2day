@@ -22,7 +22,7 @@
 	
 <div class="place-container">	
 	<div id="map" class="place-map"></div>
-	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5a128c1fae100ec246f65cb0390ad9f3&libraries=services,clusterer"></script>
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR KEY=services,clusterer"></script>
 	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<script>
 	  window.APP_PATH = "${path}";
